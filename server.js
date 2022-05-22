@@ -163,25 +163,29 @@ app.get("/userProfile", isAuth, async (req, res) => {
 app.get("/shoppingcart", isAuth, async function (req, res) {
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
-    console.log(cart);
     const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-    for (let i = 0; i < cart.length; i++) {
-        if (cart.length == 0) {
-            res.redirect("/");
-        }
-        res.render("shoppingcart", {
-            "cart": cart,
-            "pokeID": cart[i].pokeID,
-            "quantity": cart[i].quantity,
-            "price": cart[i].price,
-            "total": total,
-            "totalPerItem": cart[i].price * cart[i].quantity,
-            "status": cart[i].checkout
-        })
-        console.log(` Price for ${cart[i].pokeID} $ ${cart[i].price}`);
+    if(cart.length != 0) {
+        for (let i = 0; i < cart.length; i++) {
+            console.log("inside for looP");
+            res.render("shoppingcart", {
+                "cart": cart,
+                "pokeID": cart[i].pokeID,
+                "quantity": cart[i].quantity,
+                "price": cart[i].price,
+                "total": total,
+                "totalPerItem": cart[i].price * cart[i].quantity,
+                "status": cart[i].checkout
+            })
         console.log(cart)
     }
-  });
+} else {
+    res.render("shoppingcart", {
+        "cart": cart,
+        "total": total
+    })
+}
+
+});
 
 
 app.post("/shoppingcart", isAuth, async function (req, res) {
