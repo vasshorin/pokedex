@@ -14,6 +14,7 @@ const UserModel = require('./models/User');
 const cartModel = require('./models/Cart');
 const User = require('./models/User');
 const { stringify } = require('querystring');
+const { totalmem } = require('os');
 const mongoURI = "mongodb+srv://testUser:testUser@cluster0.etygx.mongodb.net/new?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -156,7 +157,7 @@ app.get("/userProfile", isAuth, async (req, res) => {
             "created": user.createdAt,
             "history": user.history
         });
-        console.log("sadasdsad " + user.history[0].pokeid[0]);
+        // console.log("sadasdsad " + user.history[0].pokeid[0]);
 });
 
 
@@ -164,6 +165,9 @@ app.get("/shoppingcart", isAuth, async function (req, res) {
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
     const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+// Show total price after taxes and limit to 2 decimal places
+    const totalPrice = total * 1.0875;
+    const totalPriceRounded = totalPrice.toFixed(2);
     if(cart.length != 0) {
         for (let i = 0; i < cart.length; i++) {
             console.log("inside for looP");
@@ -172,7 +176,8 @@ app.get("/shoppingcart", isAuth, async function (req, res) {
                 "pokeID": cart[i].pokeID,
                 "quantity": cart[i].quantity,
                 "price": cart[i].price,
-                "total": total,
+                "subtotal": total,
+                "total": totalPriceRounded,
                 "totalPerItem": cart[i].price * cart[i].quantity,
                 "status": cart[i].checkout
             })
@@ -181,12 +186,21 @@ app.get("/shoppingcart", isAuth, async function (req, res) {
 } else {
     res.render("shoppingcart", {
         "cart": cart,
-        "total": total
+        "total": total,
+        "subtotal": total,
+        "total": totalPriceRounded
     })
 }
 
 });
 
+// Clear cart
+app.get("/clear", isAuth, async function (req, res) {
+    const user = await UserModel.findById(req.session.userId);
+    user.cart = [];
+    await user.save();
+    res.redirect("/shoppingcart");
+});
 
 app.post("/shoppingcart", isAuth, async function (req, res) {
     // take the id and quantityt from entry field and add to cart for user
