@@ -38,13 +38,11 @@
     <h5 class="card-title">first name: <%= firstname %></h5>
     <h5 class="card-title">Created: <%= created %></h5>
     <h5 class="card-title">Updated: <%= updated %></h5>
-    <!-- Separate every object in the history array -->
     <h5 class="card-title">History:</h5>
     <ul class="list-group list-group-flush">
         <% for (var i = 0; i < history.length; i++) { %>
             <li class="list-group-item"><%= history[i].pokeID%></li>
         <% } %>
-    <!-- Separate every object in the cart array -->
     <h5 class="card-title1">Previous order: <%= history %></h5>
 
 
@@ -54,10 +52,7 @@
     </form>
 
     <script>
-        // check type of history and cart
         console.log(typeof history);
-        // display values inside history array in console
-        // console.log(history[0].pokeID[0]);
     </script>
     
 </body>

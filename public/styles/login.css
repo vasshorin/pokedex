@@ -22,6 +22,8 @@ header {
     
 }
 
+
+
 nav {    
     display: flex;
     flex-direction: row;
@@ -58,51 +60,31 @@ nav a:hover {
     color: rgb(255, 208, 0);
 }
 
-main {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
+
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #cf7d52, #d3b75c, #e8db68);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #ee7724, #cf7d52, #d3b75c, #e8db68);
 }
 
-#images {
-    display: flex;
-    flex-direction: column;
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
 }
 
-.type {
-    text-decoration: none;
-    color: #000;
-    font-size: 1.5em;
-    font-weight: bold;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 10px;
-}
-img {
-    border-radius: 5px;
-    padding: 5px 5px;
-}
-
-footer{
-    text-align: center;
-}
-section {
-    text-align: center;
-}
-
-.image_container {
-    width: 100%;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin : 10px;
-    font-size: 20px;
-    box-shadow: 0px 0px 10px #ccc;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
 
 @media screen and (max-width: 600px) {
     header {
