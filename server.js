@@ -77,6 +77,13 @@ app.get("/login", isAuth1, (req, res) => {
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
     
+    if (password === '' || email === '') {
+        res.render("login", {
+            error: "Please fill in all fields"
+        });
+        return;
+    }
+
     const user = await UserModel.findOne({ email: email });
 
     if (!user) {
@@ -140,6 +147,9 @@ app.post("/register", async (req, res) => {
 
 });
 
+// -------------
+// -- PROFILE --
+// -------------
 
 app.get("/userProfile", isAuth, async (req, res) => {
     const user = await UserModel.findById(req.session.userId);
@@ -161,6 +171,9 @@ app.get("/userProfile", isAuth, async (req, res) => {
 });
 
 
+// -------------
+// --   CART  --
+// -------------
 app.get("/shoppingcart", isAuth, async function (req, res) {
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
@@ -224,6 +237,11 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
     // res.redirect("/userProfile");
     console.log(user.cart);
 });
+
+
+// ---------------
+// -- CHECKOUT  --
+// ---------------
 
   // Checkour current cart and add to history
   app.post("/checkout", isAuth, async function (req, res) {
