@@ -148,7 +148,7 @@ app.get("/userProfile", isAuth, async (req, res) => {
             "pokeID": cart[i].pokeID,
             "quantity": cart[i].quantity,
             "price": cart[i].price,
-            "total": total
+            "total": total,
         });
         console.log(cart[i].price);
     }

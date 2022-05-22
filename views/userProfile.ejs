@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User profile page</title>
+    <link rel="stylesheet" href="/styles/userProfile.css">
 
 </head>
 <body>
@@ -15,13 +16,24 @@
     <h5 class="card-title">password: <%= password %></h5>
     <h5 class="card-title">first name: <%= firstname %></h5>
     <!-- display cart items -->
-    <h5 class="card-title">cart:</h5>
-    <% for (var i = 0; i < cart.length; i++) { %>
-        <h5 class="card-title">id: <%= cart[i].pokeID %></h5>
-        <h5 class="card-title">quantity: <%= cart[i].quantity %></h5>
-        <h5 class="card-title">price: <%= cart[i].price %></h5>
-    <% } %>
+    <div class="card">
+        <h5 class="card-title">Cart items:</h5>
+        <!-- <ul class="list-group list-group-flush">
+            <% for (var i = 0; i < cart.length; i++) { %>
+                <li class="list-group-item"><%= cart[i].pokeID %></li>
+            <% } %>
+        </ul> -->
+        <div class="card-inside"> 
+            <% for (var i = 0; i < cart.length; i++) { %>
+            <div class="id"><h5 class="card-title">id: <%= cart[i].pokeID %></h5></div>
+            <div class="quantity"><h5 class="card-title">quantity: <%= cart[i].quantity %></h5></div>
+            <div class="price"><h5 class="card-title-price">Price per pokemon: <%= cart[i].price %></h5></div>
+
+        <% } %>
+    </div>
+   
     <h5 class="card-title">total <%= total %></h5>
+    </div>
 
     <h5 class="card-title"> <%= admin %></h5>
     <form action="/logout" method="POST">
