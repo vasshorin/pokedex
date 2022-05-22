@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/index.css">
     <title>Langing page</title>
 </head>
@@ -50,22 +51,19 @@
     console.log(data)
      // 3- process the reponse and extract the img
      to_add += `
-    
-      <div class="image_container">
-      <a href="/profile/${data.id}">  
-      <p class="type">${data.name}</p>
-      <img src="${data.sprites.other["official-artwork"].front_default}">
-    </a>
-        <p class="type">${data.types[0].type.name}</p>
+    <div class="card" style="width: 35rem;">
+        <h5 class="card-title">${data.name}</h5>
+        <img src="${data.sprites.other["official-artwork"].front_default}" class="card-img-top" alt="...">
+        <div class="card-body">
+            <p class="card-text">Price: $${price}</p>
         <form action="/shoppingcart" method="POST">
-            <p class="price">$${price}</p>
             <input type="hidden" name="price" value="${price}">
             <input type="hidden" name="pokeID" value="${data.id}">
             <label for="quantity">Quantity:</label>
-            <input type="" name="quantity" value="1">
-            <button class="add_to_cart" data-id="${data.id}">Add to cart</button>
+            <input type="number" name="quantity" value="1" style="width: 40px">
+            <button class="btn btn-primary" data-id="${data.id}">Add to cart</button>
         </form>
-
+        </div>
       </div>`
 }
 
