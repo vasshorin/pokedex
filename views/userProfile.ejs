@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User profile page</title>
+</head>
+<body>
+    <!-- Create user profile page -->
+    <h1>User profile page</h1>
+    <h5 class="card-title">id: <%= id %></h5>
+
+    <h5 class="card-title">username: <%= username %></h5>
+    <h5 class="card-title">email: <%= email %></h5>
+    <h5 class="card-title">password: <%= password %></h5>
+    <form action="/logout" method="POST">
+        <button type="submit">Logout</button>
+    </form>
+    
+</body>
+</html>
