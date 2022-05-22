@@ -1,0 +1,140 @@
+body {
+    background: #fafafa;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px;
+    color: #333;
+    line-height: 1.5;
+    width: 80%;
+    margin: 0 auto;
+    
+}
+#outer {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    
+}
+
+nav {    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #333;
+    overflow: hidden;
+}
+
+nav a {
+    display: inline-block;
+    padding: 10px;
+    color: #f2f2f2;
+    text-decoration: none; 
+    padding: 14px 16px; 
+    text-align: center;
+}
+
+nav a:hover {
+    background-color: #f2f2f2;
+    color: rgb(255, 208, 0);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+#images {
+    display: flex;
+    flex-direction: column;
+}
+
+.type {
+    /* remove underline and change color to balck on link p */
+    text-decoration: none;
+    color: #000;
+    font-size: 1.5em;
+    font-weight: bold;
+    /* text-align: center; */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+}
+img {
+    border-radius: 5px;
+    padding: 5px 5px;
+}
+
+footer{
+    text-align: center;
+}
+section {
+    text-align: center;
+}
+
+.image_container {
+    width: 100%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin : 10px;
+    font-size: 20px;
+    box-shadow: 0px 0px 10px #ccc;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+@media screen and (max-width: 600px) {
+    header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        padding-bottom: 50px;
+    }
+
+    header img {
+        width: 100%;
+        height: auto;
+    }
+    nav{
+        display: flex;
+        flex-direction: column;
+    }
+    nav a{
+        width: 100%;
+        float: none !important;
+    }
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    p {
+        width: 100%;
+        font-size: 18px;
+        padding: 0px 5px;
+    }
+    .type {
+        width: 90%;
+        padding-left: 5%;
+    }
+    #images {
+        display: flex;
+        width: 95%;
+    }
+
+    #images img {
+        width: 100%;
+        border-radius: 10px;
+        padding: 5px;
+    }
+}

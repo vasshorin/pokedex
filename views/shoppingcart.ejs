@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <!-- Post for for cart with id and quantity -->
+    <form action="/shoppingcart" method="POST">
+        <label for="pokeID">Product id:</label>
+        <input type="text" name="pokeID" id="pokeID">
+        <label for="quantity">Quantity:</label>
+        <input type="text" name="quantity" id="quantity">
+        <button type="submit">Add to cart</button>
+    </form>
+
+    <!-- Get items from cart -->
+    <form action="/shoppingcart" method="GET">
+        <button type="submit">Get items from cart</button>
+    </form>
+
+
+</body>
+</html>l

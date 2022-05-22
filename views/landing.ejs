@@ -4,9 +4,75 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles/index.css">
     <title>Langing page</title>
 </head>
 <body>
     <h1>This is a landing page.</h1>
+
+    <main>
+
+
+
+    </main>
+
+
+
+    <script>
+        to_add = ''
+    function processPokeResp(data){
+     price = Math.floor(Math.random() * 10) + 1
+    console.log(data)
+     // 3- process the reponse and extract the img
+     to_add += `
+    
+      <div class="image_container">
+      <a href="/profile/${data.id}">  
+      <p class="type">${data.name}</p>
+      <img src="${data.sprites.other["official-artwork"].front_default}">
+    </a>
+        <p class="type">${data.types[0].type.name}</p>
+        <form action="/shoppingcart" method="POST">
+            <p class="price">$${price}</p>
+            <input type="hidden" name="price" value="${price}">
+            <input type="hidden" name="pokeID" value="${data.id}">
+            <label for="quantity">Quantity:</label>
+            <input type="" name="quantity" value="1">
+            <button class="add_to_cart" data-id="${data.id}">Add to cart</button>
+        </form>
+
+      </div>`
+}
+
+    async function loadNineImages() {
+        console.log('loading images')
+    for (i = 1; i <= 9; i++) { // Nine times
+        if (i % 3 == 1) { // only when i= 1, 4, 7
+            to_add += `<div class="images_group">`
+        }
+        
+        // 1- generate randome numebers 
+        x =  Math.floor(Math.random() * 777) + 1
+
+        // 2- init a AJAX request to pokeapi.co
+        await $.ajax({
+            type: "GET",
+            url: `https://pokeapi.co/api/v2/pokemon/${x}/`,
+            success: processPokeResp
+        })
+
+       
+
+        if (i % 3 == 0) { // only when i= 3, 6, 9
+            to_add += `</div>`
+        }
+    }
+    jQuery("main").html(to_add)
+}
+
+
+    loadNineImages();
+    </script>
 </body>
 </html>
