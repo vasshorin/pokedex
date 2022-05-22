@@ -12,6 +12,8 @@ const app = express();
 
 const UserModel = require('./models/User');
 const cartModel = require('./models/Cart');
+const User = require('./models/User');
+const { stringify } = require('querystring');
 const mongoURI = "mongodb+srv://testUser:testUser@cluster0.etygx.mongodb.net/new?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -100,7 +102,7 @@ app.get("/register", (req, res) => {
 
 
 app.post("/register", async (req, res) => {
-    const { firstname, lastname, email, password, admin, cart, createdAt  } = req.body;
+    const { firstname, lastname, email, password, admin, cart, history, createdAt  } = req.body;
 
     let user = await UserModel.findOne({ email: email });
 
@@ -117,6 +119,7 @@ app.post("/register", async (req, res) => {
         password: hashedPassword,
         admin: false,
         cart: [],
+        history: [],
         createdAt: new Date()
     });
 
@@ -129,28 +132,33 @@ app.post("/register", async (req, res) => {
 
 app.get("/userProfile", isAuth, async (req, res) => {
     const user = await UserModel.findById(req.session.userId);
+    // const history = JSON.stringify(user.history);
         await res.render("userProfile.ejs", {
             "username": req.session.username,
-            "email": req.session.email,
+            "email": req.session.email, 
             "isAuth": req.session.isAuth,
             "id": req.session.userId,
             "password": req.session.password,
-            "cart": req.session.cart,
             "firstname": req.session.firstname,
             "lastname": req.session.lastname,
             "admin": req.session.createdAt,
-            "timeline": user.timeline,
-
+            "updated": user.updatedAt,
+            "created": user.createdAt,
+            "history": user.history
         });
-
+        console.log("sadasdsad " + user.history[0].pokeid[0]);
 });
 
 
 app.get("/shoppingcart", isAuth, async function (req, res) {
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
+    console.log(cart);
     const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
     for (let i = 0; i < cart.length; i++) {
+        if (cart.length == 0) {
+            res.redirect("/");
+        }
         res.render("shoppingcart", {
             "cart": cart,
             "pokeID": cart[i].pokeID,
@@ -158,15 +166,17 @@ app.get("/shoppingcart", isAuth, async function (req, res) {
             "price": cart[i].price,
             "total": total,
             "totalPerItem": cart[i].price * cart[i].quantity,
+            "status": cart[i].checkout
         })
         console.log(` Price for ${cart[i].pokeID} $ ${cart[i].price}`);
+        console.log(cart)
     }
   });
 
 
 app.post("/shoppingcart", isAuth, async function (req, res) {
     // take the id and quantityt from entry field and add to cart for user
-    const { pokeID, quantity, price } = req.body;
+    const { pokeID, quantity, price , checkout} = req.body;
     const user = await UserModel.findOne({ _id: req.session.userId });
     
     if (!user.cart) {
@@ -177,6 +187,7 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
         pokeID: pokeID,
         quantity: quantity,
         price: price,
+        checkout: false,
         createdAt: new Date()
     };
 
@@ -184,6 +195,35 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
     await user.save();
     // res.redirect("/userProfile");
     console.log(user.cart);
+});
+
+  // Checkour current cart and add to history
+  app.post("/checkout", isAuth, async function (req, res) {
+    const { id, quantity, price , total, totalPerItem} = req.body;
+    const user = await UserModel.findById(req.session.userId);
+    const cart = user.cart;
+
+    if (!user.history) {
+      user.history = [];
+    }
+
+    const cartItem = {
+        pokeid: id,
+        quantity: quantity,
+        price: price,
+        total: total,
+        totalPerItem: totalPerItem,
+        createdAt: new Date()
+    };
+
+    console.log(id);
+    user.history.push(cartItem);
+    // empty user cart
+    user.cart = [];
+    await user.save();
+    res.redirect("/userProfile");
+
+
 });
 
     // const cart = await cartModel.findOne({ _id: req.session.cart });

@@ -4,7 +4,7 @@ body {
     font-size: 14px;
     color: #333;
     line-height: 1.5;
-    width: 80%;
+    width: 100%;
     margin: 0 auto;
     
 }
@@ -22,12 +22,23 @@ header {
     
 }
 
+
+
 nav {    
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     background-color: #333;
     overflow: hidden;
+}
+
+#right_side {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    width: 100%;
 }
 
 nav a {
@@ -37,6 +48,11 @@ nav a {
     text-decoration: none; 
     padding: 14px 16px; 
     text-align: center;
+}
+
+nav img {
+    width: 30px;
+    height: 30px;
 }
 
 nav a:hover {
@@ -91,6 +107,54 @@ section {
     align-items: center;
     text-align: center;
 }
+
+
+
+
+.gradient-custom-2 {
+/* fallback for old browsers */
+background: #fccb90;
+
+/* Chrome 10-25, Safari 5.1-6 */
+background: -webkit-linear-gradient(to right, #ee7724, #cf7d52, #d3b75c, #e8db68);
+
+/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+background: linear-gradient(to right, #ee7724, #cf7d52, #d3b75c, #e8db68);
+}
+
+@media (min-width: 768px) {
+.gradient-form {
+height: 100vh !important;
+}
+}
+@media (min-width: 769px) {
+.gradient-custom-2 {
+border-top-right-radius: .3rem;
+border-bottom-right-radius: .3rem;
+}
+}
+
+.gradient-custom-3 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(255, 182, 129, 0.5), rgba(241, 241, 82, 0.5));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(255, 182, 129, 0.5), rgba(241, 241, 82, 0.5))
+    }
+    .gradient-custom-4 {
+    /* fallback for old browsers */
+    background: #84fab0;
+    
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, rgba(255, 182, 129, 0.5), rgba(241, 241, 82, 0.5));
+    
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to right, rgba(255, 182, 129, 0.5), rgba(241, 241, 82, 0.5))
+    }
+
 @media screen and (max-width: 600px) {
     header {
         display: flex;
@@ -113,6 +177,24 @@ section {
         width: 100%;
         float: none !important;
     }
+
+    #left_side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+    }
+
+
+    #right_side {
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        width: 100%;
+    }
+
     main {
         display: flex;
         flex-direction: column;

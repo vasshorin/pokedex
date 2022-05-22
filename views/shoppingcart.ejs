@@ -5,9 +5,28 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/styles/userProfile.css">
+    <link rel="stylesheet" href="/styles/index.css">
 </head>
 <body>
+
+    <header>
+        <h1>Pokemon searching mechanism</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png" alt="">
+    </header>
+
+    <nav>
+        <div id="left_side">
+            <a href="/"> Home </a>
+        </div>
+
+        <div id="right_side">
+            <a href="/register" style="float: right;"> Sign up </a>
+            <a href="/login" style="float: right;"> Login </a>
+                <a href="/shoppingcart">
+                    <img src="/images/shopping-cart.png" alt="">
+                </a>
+        </div>
+    </nav>
     
     <!-- Display items in the shopping cart -->
     <div class="card">
@@ -23,11 +42,26 @@
             <div class="quantity"><h5 class="card-title">quantity: <%= cart[i].quantity %></h5></div>
             <div class="price"><h5 class="card-title-price">Price per pokemon: <%= cart[i].price %></h5></div>
             <div class=""><h5 class="card-title-price">total <%= cart[i].price * cart[i].quantity %></h5></div>
+            <h5 class="card-title">status: <%= status %></h5>
         <% } %>
     </div>
    
     <h5 class="card-title">total <%= total %></h5>
     </div>
+
+    <!-- Checkout form button -->
+    <form action="/checkout" method="POST">
+        <% for (var i = 0; i < cart.length; i++) { %>
+        <!-- input fields for pokeid, qty, price, total, totalPerItem -->
+        <input type="hidden" name="id" value="<%= cart[i].pokeID %>" />
+        <input type="hidden" name="quantity" value="<%= cart[i].quantity %>"/>
+        <input type="hidden" name="price" value="<%= cart[i].price %>"/> 
+        <input type="hidden" name="totalPerItem" value="<%= cart[i].price * cart[i].quantity %>"/>
+        <% } %>
+        <input type="hidden" name="total" value="<%= total %>"/>
+        <button type="submit">Checkout</button>
+    </form>
+
 
 
 </body>

@@ -14,7 +14,15 @@ const userSchema = new Schema(
         price: Number,
         quantity: Number,
         checkout: Boolean,
-      }]
+      }],
+      history: [{
+          pokeid: [],
+          quantity: [],
+          price: [],
+          total: [],
+          totalPerItem: [],
+          createdAt: Date
+    }],
     },
     {
       _id: true,

@@ -6,19 +6,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User profile page</title>
     <link rel="stylesheet" href="/styles/userProfile.css">
+    <link rel="stylesheet" href="/styles/index.css">
 
 </head>
 <body>
+
+    <header>
+        <h1>Pokemon searching mechanism</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png" alt="">
+    </header>
+
+    <nav>
+        <div id="left_side">
+            <a href="/"> Home </a>
+        </div>
+
+        <div id="right_side">
+            <a href="/register" style="float: right;"> Sign up </a>
+            <a href="/login" style="float: right;"> Login </a>
+            <a href="/shoppingcart">
+                <img src="/images/shopping-cart.png" alt="">
+            </a>
+        </div>
+    </nav>
+
     <!-- Create user profile page -->
     <h1>User profile page</h1>
     <h5 class="card-title">id: <%= id %></h5>
     <h5 class="card-title">email: <%= email %></h5>
     <h5 class="card-title">password: <%= password %></h5>
     <h5 class="card-title">first name: <%= firstname %></h5>
+    <h5 class="card-title">Created: <%= created %></h5>
+    <h5 class="card-title">Updated: <%= updated %></h5>
+    <!-- Separate every object in the history array -->
+    <h5 class="card-title">History:</h5>
+    <ul class="list-group list-group-flush">
+        <% for (var i = 0; i < history.length; i++) { %>
+            <li class="list-group-item"><%= history[i].pokeID%></li>
+        <% } %>
+    <!-- Separate every object in the cart array -->
+    <h5 class="card-title1">Previous order: <%= history %></h5>
+
+
     <!-- display cart items -->
     <form action="/logout" method="POST">
         <button type="submit">Logout</button>
     </form>
+
+    <script>
+        // check type of history and cart
+        console.log(typeof history);
+        // display values inside history array in console
+        // console.log(history[0].pokeID[0]);
+    </script>
     
 </body>
 </html>
