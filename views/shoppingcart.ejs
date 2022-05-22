@@ -5,22 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="/styles/userProfile.css">
 </head>
 <body>
     
-    <!-- Post for for cart with id and quantity -->
-    <form action="/shoppingcart" method="POST">
-        <label for="pokeID">Product id:</label>
-        <input type="text" name="pokeID" id="pokeID">
-        <label for="quantity">Quantity:</label>
-        <input type="text" name="quantity" id="quantity">
-        <button type="submit">Add to cart</button>
-    </form>
-
-    <!-- Get items from cart -->
-    <form action="/shoppingcart" method="GET">
-        <button type="submit">Get items from cart</button>
-    </form>
+    <!-- Display items in the shopping cart -->
+    <div class="card">
+        <h5 class="card-title">Cart items:</h5>
+        <!-- <ul class="list-group list-group-flush">
+            <% for (var i = 0; i < cart.length; i++) { %>
+                <li class="list-group-item"><%= cart[i].pokeID %></li>
+            <% } %>
+        </ul> -->
+        <div class="card-inside"> 
+            <% for (var i = 0; i < cart.length; i++) { %>
+            <div class="id"><h5 class="card-title">id: <%= cart[i].pokeID %></h5></div>
+            <div class="quantity"><h5 class="card-title">quantity: <%= cart[i].quantity %></h5></div>
+            <div class="price"><h5 class="card-title-price">Price per pokemon: <%= cart[i].price %></h5></div>
+            <div class=""><h5 class="card-title-price">total <%= cart[i].price * cart[i].quantity %></h5></div>
+        <% } %>
+    </div>
+   
+    <h5 class="card-title">total <%= total %></h5>
+    </div>
 
 
 </body>

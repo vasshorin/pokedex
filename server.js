@@ -129,10 +129,6 @@ app.post("/register", async (req, res) => {
 
 app.get("/userProfile", isAuth, async (req, res) => {
     const user = await UserModel.findById(req.session.userId);
-    const cart = user.cart;
-    const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-    console.log(total);
-    for (let i = 0; i < cart.length; i++) {
         await res.render("userProfile.ejs", {
             "username": req.session.username,
             "email": req.session.email,
@@ -144,19 +140,27 @@ app.get("/userProfile", isAuth, async (req, res) => {
             "lastname": req.session.lastname,
             "admin": req.session.createdAt,
             "timeline": user.timeline,
+
+        });
+
+});
+
+
+app.get("/shoppingcart", isAuth, async function (req, res) {
+    const user = await UserModel.findById(req.session.userId);
+    const cart = user.cart;
+    const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
+    for (let i = 0; i < cart.length; i++) {
+        res.render("shoppingcart", {
             "cart": cart,
             "pokeID": cart[i].pokeID,
             "quantity": cart[i].quantity,
             "price": cart[i].price,
             "total": total,
-        });
-        console.log(cart[i].price);
+            "totalPerItem": cart[i].price * cart[i].quantity,
+        })
+        console.log(` Price for ${cart[i].pokeID} $ ${cart[i].price}`);
     }
-});
-
-
-app.get("/shoppingcart", isAuth, async function (req, res) {
-        res.render("shoppingcart")
   });
 
 
@@ -178,7 +182,7 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
 
     user.cart.push(cartItem);
     await user.save();
-    res.redirect("/userProfile");
+    // res.redirect("/userProfile");
     console.log(user.cart);
 });
 
