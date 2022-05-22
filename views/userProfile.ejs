@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User profile page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="/styles/userProfile.css">
     <link rel="stylesheet" href="/styles/index.css">
 
@@ -30,29 +31,49 @@
         </div>
     </nav>
 
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">User profile</h5>
+        </div>
+        <div class="card-inside">
+            <div class="names"> 
+                <div class="firstname"><h5 class="card-title">firstname: <%= firstname %></h5></div>
+                <div class="lastname"><h5 class="card-title">lastname: <%= lastname %></h5></div>
+            </div>
+            <div class="info"> 
+                <div class="id"><h5 class="card-title">id: <%= id %></h5></div>
+                <div class="email"><h5 class="card-title">email: <%= email %></h5></div>
+            </div>
+            <div class="created"><h5 class="card-title">created: <%= created %></h5></div>
+            <div class="updated"><h5 class="card-title">updated: <%= updated %></h5></div>
+            <div class="history"><p class="card-title">Previous checkout: <%= history %></p></div>
+        </div>
+
+
     <!-- Create user profile page -->
-    <h1>User profile page</h1>
+    <!-- <h1>User profile page</h1>
     <h5 class="card-title">id: <%= id %></h5>
     <h5 class="card-title">email: <%= email %></h5>
     <h5 class="card-title">password: <%= password %></h5>
     <h5 class="card-title">first name: <%= firstname %></h5>
     <h5 class="card-title">Created: <%= created %></h5>
     <h5 class="card-title">Updated: <%= updated %></h5>
-    <h5 class="card-title">History:</h5>
-    <ul class="list-group list-group-flush">
+    <h5 class="card-title">History:</h5> -->
+    <!-- <ul class="list-group list-group-flush">
         <% for (var i = 0; i < history.length; i++) { %>
             <li class="list-group-item"><%= history[i].pokeID%></li>
         <% } %>
-    <h5 class="card-title1">Previous order: <%= history %></h5>
+    <h5 class="card-title">Previous order: <%= history %></h5> -->
 
 
     <!-- display cart items -->
     <form action="/logout" method="POST">
-        <button type="submit">Logout</button>
+        <button type="submit" class="btn-lg btn-danger">Logout</button>
     </form>
 
     <script>
         console.log(typeof history);
+        console.log(history);
     </script>
     
 </body>

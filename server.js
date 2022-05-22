@@ -48,20 +48,30 @@ const isAuth = (req, res, next) => {
     }
 };
 
+const isAuth1 = (req, res, next) => {
+    if(req.session.isAuth) {
+        res.redirect('/userProfile');
+        next();
+    } else {
+        next();
+    }
+};
+
 // ------------
 // -- ROUTES --
 // ------------
 
-app.get("/", (req, res) => {
+app.get("/", isAuth, (req, res) => {
     res.render("landing");
 });
 
 // ------------
 // --  LOGIN --
 // ------------
-app.get("/login", (req, res) => {
+app.get("/login", isAuth1, (req, res) => {
     res.render("login");
 });
+
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
@@ -96,7 +106,7 @@ app.post("/login", async (req, res) => {
 // -- SIGNUP --
 // ------------
 
-app.get("/register", (req, res) => {
+app.get("/register", isAuth1, (req, res) => {
     res.render("register");
 });
 
