@@ -242,7 +242,6 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
 // -- CHECKOUT  --
 // ---------------
 
-  // Checkour current cart and add to history
   app.post("/checkout", isAuth, async function (req, res) {
     const { id, quantity, price , total, totalPerItem} = req.body;
     const user = await UserModel.findById(req.session.userId);
@@ -288,10 +287,6 @@ app.get('/search', async (req, res) => {
 // ----------------
 // --   SEARCH   --
 // ----------------
-
-// Connect to search.ejs to search for pokemon by name,type, or id or height or weight from pokeapi.co
-
-
 
 const PORT = process.env.PORT || 5003;
 app.listen(PORT, () => {
