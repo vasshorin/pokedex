@@ -271,22 +271,6 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
 
 });
 
-    // const cart = await cartModel.findOne({ _id: req.session.cart });
-//     const cartItem = {
-//         pokeID: pokeID,
-//         price: price,
-//         quantity: quantity,
-//         owner: req.session.userId,
-//         checkout: false,
-//     };
-//     const newCart = new cartModel(cartItem);
-//     await newCart.save();
-//     // user.cart.push(newCart);
-//     await user.save();
-//     res.redirect("/shoppingcart");
-// });
-
-
 // ----------------
 // --   LOGOUT   --
 // ----------------
