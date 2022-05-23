@@ -6,12 +6,8 @@ body {
     line-height: 1.5;
     width: 100%;
     margin: 0 auto;
-    
 }
-#outer {
-    display: flex;
-    flex-direction: column;
-}
+
 
 header {
     display: flex;
@@ -31,7 +27,6 @@ nav {
     overflow: hidden;
 }
 
-
 #left_side {
     display: flex;
     flex-direction: row;
@@ -39,7 +34,6 @@ nav {
     align-items: center;
     width: 100%;
 }
-
 
 #right_side {
     display: flex;
@@ -68,10 +62,105 @@ nav a:hover {
     color: rgb(255, 208, 0);
 }
 
-main {
+.card {
+    width: 97%;
+    margin: auto;
+}
+.card-inside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: stretch;
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    width: 100%;
+}
+#right_side {
+    border-bottom: 1px solid #333;
+    float: right;
+}
+
+#right_side1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    margin-top: 2%;
+    /* border-bottom: 1px solid #333; */
+    float: right;
+}
+
+#buttons {
     display: flex;
     flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
+#pokemonEntry {
+    font-size: 1.5em;
+    font-weight: bold;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    margin: 10px;
+    width: 50%;
+    font-size: 20px;
+}
+
+
+.pokemon {
+    display: none;
+    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    width: 50%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    box-shadow: 0px 0px 10px #ccc;
+    justify-content: center;
+    align-items: center;
+}
+.pokemon-card {
+
+    width: 100%;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+    font-size: 20px;
+    box-shadow: 0px 0px 10px #ccc;
+    justify-content: center;
+    align-items: center;
+}
+
+main {
+    display: flex;
+    width: 90%;
+    margin: auto;
+    flex-direction: row;
+    /* limit to 3 cards per row */
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+
+}
+
+#selectors {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 60%;
+    margin: auto;
 }
 
 #images {
@@ -79,60 +168,17 @@ main {
     flex-direction: column;
 }
 
-.type {
-    text-decoration: none;
-    color: #000;
-    font-size: 1.5em;
-    font-weight: bold;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    padding: 5px;
-    margin: 10px;
-}
 img {
     border-radius: 5px;
     padding: 5px 5px;
 }
 
-footer{
-    text-align: center;
-}
-section {
-    text-align: center;
-}
 
-.card {
-    width: 100%;
-    margin: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    margin : 10px;
-    font-size: 20px;
-    box-shadow: 0px 0px 10px #ccc;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
 
-.card-title {
-    font-size: 1.5em;
-    font-weight: bold;
-    color: #000;
-}
 
-@media screen and (max-width: 1150px) {
-    main {
-        display: flex;
-        flex-direction: row;
-        /* fit two card on page */
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
-}
-    
 
-@media screen and (max-width: 700px) {
+
+@media screen and (max-width: 600px) {
     header {
         display: flex;
         flex-direction: column;
@@ -176,17 +222,18 @@ section {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 90%;
     }
-
     p {
         width: 100%;
         font-size: 18px;
         padding: 0px 5px;
     }
-    .type {
+    .pokemon {
         width: 90%;
-        padding-left: 5%;
+        margin: 10px;
     }
+
     #images {
         display: flex;
         width: 95%;

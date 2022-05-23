@@ -216,7 +216,6 @@ app.get("/clear", isAuth, async function (req, res) {
 });
 
 app.post("/shoppingcart", isAuth, async function (req, res) {
-    // take the id and quantityt from entry field and add to cart for user
     const { pokeID, quantity, price , checkout} = req.body;
     const user = await UserModel.findOne({ _id: req.session.userId });
     
@@ -288,12 +287,27 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
 // });
 
 
-
+// ----------------
+// --   LOGOUT   --
+// ----------------
 app.post("/logout", (req, res) => {
     req.session.destroy(() => {
         res.redirect("/login");
     });
 });
+
+app.get('/search', async (req, res) => {
+    res.render('search');
+});
+
+
+// ----------------
+// --   SEARCH   --
+// ----------------
+
+// Connect to search.ejs to search for pokemon by name,type, or id or height or weight from pokeapi.co
+
+
 
 app.listen(3000, () => {
     console.log("Server started on port 3000");

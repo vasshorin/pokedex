@@ -33,6 +33,17 @@ nav {
     overflow: hidden;
 }
 
+
+
+#left_side {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+}
+
+
 #right_side {
     display: flex;
     flex-direction: row;
