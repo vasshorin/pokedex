@@ -309,8 +309,9 @@ app.get('/search', async (req, res) => {
 
 
 
-app.listen(3000, () => {
-    console.log("Server started on port 3000");
+const PORT = process.env.PORT || 5003;
+app.listen(PORT, () => {
+    console.log(`Our app is running on port htpp://localhost:${ PORT }`);
 });
 
 
