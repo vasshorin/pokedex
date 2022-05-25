@@ -178,7 +178,6 @@ app.get("/shoppingcart", isAuth, async function (req, res) {
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
     const total = cart.reduce((acc, curr) => acc + curr.price * curr.quantity, 0);
-// Show total price after taxes and limit to 2 decimal places
     const totalPrice = total * 1.0875;
     const totalPriceRounded = totalPrice.toFixed(2);
     if(cart.length != 0) {
@@ -246,6 +245,14 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
     const { id, quantity, price , total, totalPerItem} = req.body;
     const user = await UserModel.findById(req.session.userId);
     const cart = user.cart;
+    // const postId = function () {
+    //     for (let i = 0; i < 412421; i++) {
+    //         return i;
+    //     }
+    // }
+
+    // const url = type + '/' + id;
+
 
     if (!user.history) {
       user.history = [];
@@ -256,6 +263,7 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
         quantity: quantity,
         price: price,
         total: total,
+        url: url;
         totalPerItem: totalPerItem,
         createdAt: new Date()
     };
