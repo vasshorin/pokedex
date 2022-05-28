@@ -15,6 +15,7 @@ const cartModel = require('./models/Cart');
 const User = require('./models/User');
 const { stringify } = require('querystring');
 const { totalmem } = require('os');
+const { log } = require('console');
 const mongoURI = "mongodb+srv://testUser:testUser@cluster0.etygx.mongodb.net/new?retryWrites=true&w=majority";
 
 mongoose.connect(mongoURI, { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
@@ -58,6 +59,79 @@ const isAuth1 = (req, res, next) => {
     }
 };
 
+// send all users to admin page
+app.get('/getAllUsers', isAuth, (req, res) => {
+    UserModel.find({
+        admin: false
+    }, async (err, users) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(users);
+        }
+    });
+});
+
+// Update user
+app.post('/updateUser', isAuth, (req, res) => {
+    const { _id, firstname, lastname, email, password, admin } = req.body;
+    console.log(req.body);
+    const user = {
+        _id: _id,
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        admin: admin
+    };
+    UserModel.findOneAndUpdate({
+        _id: _id
+    }, user, {
+        new: true
+    }, (err, user) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.send(user);
+        }
+    });
+});
+
+// Delete user
+app.post('/deleteUser', isAuth, (req, res) => {
+    const { _id } = req.body;
+    UserModel.findOneAndDelete({
+        _id: _id
+    }, (err, user) => {
+        if(err) {
+            console.log(err);
+        } else {
+            res.redirect('/admin');
+        }
+    });
+});
+
+
+// Add new user
+app.post('/addUser', isAuth, (req, res) => {
+    const { firstname, lastname, email, password, admin } = req.body;
+    const user = new UserModel({
+        firstname: firstname,
+        lastname: lastname,
+        email: email,
+        password: password,
+        admin: admin
+    });
+    user.save((err, user) => {
+        if(err) {
+            console.log(err);
+        } else {
+            //redirect to admin page after adding new user
+            res.redirect('/admin');
+        }
+    });
+});
+
+
 // ------------
 // -- ROUTES --
 // ------------
@@ -65,6 +139,11 @@ const isAuth1 = (req, res, next) => {
 app.get("/", isAuth, (req, res) => {
     res.render("landing");
 });
+
+app.get('/admin', (req, res) => {
+    res.render("admin");
+})
+
 
 // ------------
 // --  LOGIN --
@@ -76,7 +155,7 @@ app.get("/login", isAuth1, (req, res) => {
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
-    
+     // TODO: check if user is an admin, if so, redirect to admin page instead of user page
     if (password === '' || email === '') {
         res.render("login", {
             error: "Please fill in all fields"
@@ -93,9 +172,27 @@ app.post("/login", async (req, res) => {
     const isMatch = await bcrypt.compare(password, user.password);
     
 
+    // if (isMatch) {
+    //     req.session.isAuth = true;
+    //     req.session.userId = user._id;
+    //     req.session.firstname = user.firstname;
+    //     req.session.lastname = user.lastname;
+    //     req.session.email = user.email;
+    //     req.session.password = user.password;
+    //     req.session.cart = user.cart;
+    //     console.log(req.session);
+    //     if (user.admin) {
+    //         res.redirect("/admin");
+    //     } else {
+    //         res.redirect("/userProfile");
+    //     }
+    // } else {
+    //     res.redirect("/login");
+    // }
+
     if(!isMatch) {
         res.redirect("/login");
-    } else {
+    } else if (user.admin === false) {
         req.session.isAuth = true;
         req.session.userId = user._id;
         req.session.firstname = user.firstname;
@@ -105,9 +202,18 @@ app.post("/login", async (req, res) => {
         req.session.cart = user.cart;
         console.log(req.session);
         res.redirect(`/userProfile`);
+    } else {
+        req.session.isAuth = true;
+        req.session.userId = user._id;
+        req.session.firstname = user.firstname;
+        req.session.lastname = user.lastname;
+        req.session.email = user.email;
+        req.session.password = user.password;
+        req.session.cart = user.cart;
+        console.log("Admin" + req.session);
+        res.redirect(`/admin`);
     }
 });
-
 
 
 // ------------
@@ -263,7 +369,6 @@ app.post("/shoppingcart", isAuth, async function (req, res) {
         quantity: quantity,
         price: price,
         total: total,
-        url: url;
         totalPerItem: totalPerItem,
         createdAt: new Date()
     };

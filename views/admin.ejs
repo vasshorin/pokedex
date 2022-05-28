@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Admin panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/admin.css">
+</head>
+<body>
+    
+    <header>
+        <h1>Pokemon searching mechanism</h1>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/98/International_Pok%C3%A9mon_logo.svg/640px-International_Pok%C3%A9mon_logo.svg.png" alt="">
+    </header>
+
+    <nav>
+      <div id="left_side">
+          <a href="/"> Home </a>
+          <a href="/search"> Search </a>
+      </div>
+
+      <div id="right_side">
+        <a href="/userProfile" style="float: right;"> User profile </a>
+          <a href="/register" style="float: right;"> Sign up </a>
+          <a href="/login" style="float: right;"> Login </a>
+          <a href="/shoppingcart">
+              <img src="/images/shopping-cart.png" alt="">
+          </a>
+      </div>
+  </nav>
+    <!-- Create new user  -->
+    <section>
+        <h2>Create new user</h2>
+        <form action="/addUser" method="POST">
+            <label for="firstname">First name:</label>
+            <input type="text" name="firstname" id="firstname">
+            <label for="lastname">Last name:</label>
+            <input type="text" name="lastname" id="lastname">
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Email">
+            <label for="password">Password:</label>
+            <input type="password" name="password" placeholder="Password">
+            <label for="admin">Admin:</label>
+            <input type="text" name="admin" id="admin">
+            <button type="submit">Register</button>
+        </form>
+    </section>
+
+    <div id="populate">
+
+    </div>
+
+
+    <form action="/logout" method="POST">
+        <button class="btn btn-danger" type="submit">Logout</button>
+    </form>
+    <script src="/scripts/admin.js"></script>
+    <!-- render users -->
+</body>
+</html>
