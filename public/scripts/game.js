@@ -26,26 +26,6 @@ difficulty = [
     }
 ]
 
-// difficulty1 = [
-//     easy = {
-//         name: "easy",
-//         timer: 30,
-//         gridWidth: 3,
-//         gridHeight: 3
-//     },
-//     medium = {
-//         name: "medium",
-//         timer: 20,
-//         gridWidth: 4,
-//         gridHeight: 4
-//     },
-//     hard = {
-//         name: "hard",
-//         timer: 10,
-//         gridWidth: 5,
-//         gridHeight: 5
-//     }
-// ]
 function shuffleCards() {
     $(".card").each(function (index, element) {
         let randomIndex = Math.floor(Math.random() * $(".card").length)
@@ -58,16 +38,21 @@ function setup() {
     // set up the timer
     let timer = setInterval(() => {
         $(".timer").text(parseInt($(".timer").text()) - 1)
-        if (parseInt($(".timer").text()) == 0) {
+        if (parseInt($(".timer").text()) == 10) {
+            $(".timer").css("color", "red")
+            $(".timer").css("font-size", "5em")
+        } else if (parseInt($(".timer").text()) == 0) {
             alert("You lose!")
             clearInterval(timer)
+            // reload page
+            location.reload()
         }
     }, 1000)
 
     // Let user start the game
     $(".start").on("click", function () {
         let difficulty = $(".difficulty").val()
-        let timer = difficulty == "easy" ? 30 : difficulty == "medium" ? 20 : 10
+        let timer = difficulty == "easy" ? 15 : difficulty == "medium" ? 30 : 40
 
         if (difficulty == "easy") {
             if ($(".game").hasClass("game-medium")) {
@@ -338,7 +323,6 @@ function setup() {
             firstCardHasBeenFlipped = false
             console.log(firstCard, secondCard);
             // prevernt user from double clicking
-            // lockBoard = true
             // check if the 2 cards match
      
             // ccheck if we have match!
