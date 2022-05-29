@@ -152,6 +152,22 @@ app.get("/login", isAuth1, (req, res) => {
     res.render("login");
 });
 
+// post score to database under each user
+app.put("/api/game", async (req, res) => {
+    const { difficulty, score } = req.body;
+    const user = await UserModel.findOne({ _id: req.session.userId });
+    const userScore = {
+        difficulty: difficulty,
+        score: score,
+        date: new Date()
+    };
+    user.wins.push(userScore);
+    await user.save();
+    res.send(userScore);
+
+});
+
+
 
 app.post("/login", async (req, res) => {
     const { email, password } = req.body;
@@ -200,6 +216,7 @@ app.post("/login", async (req, res) => {
         req.session.email = user.email;
         req.session.password = user.password;
         req.session.cart = user.cart;
+        req.session.wins = user.wins;
         console.log(req.session);
         res.redirect(`/userProfile`);
     } else {
@@ -210,6 +227,7 @@ app.post("/login", async (req, res) => {
         req.session.email = user.email;
         req.session.password = user.password;
         req.session.cart = user.cart;
+        req.session.wins = user.wins;
         console.log("Admin" + req.session);
         res.redirect(`/admin`);
     }
@@ -226,7 +244,7 @@ app.get("/register", isAuth1, (req, res) => {
 
 
 app.post("/register", async (req, res) => {
-    const { firstname, lastname, email, password, admin, cart, history, createdAt  } = req.body;
+    const { firstname, lastname, email, password, admin, cart, history, createdAt, wins  } = req.body;
 
     let user = await UserModel.findOne({ email: email });
 
@@ -244,6 +262,7 @@ app.post("/register", async (req, res) => {
         admin: false,
         cart: [],
         history: [],
+        wins: [],
         createdAt: new Date()
     });
 
@@ -271,7 +290,8 @@ app.get("/userProfile", isAuth, async (req, res) => {
             "admin": req.session.createdAt,
             "updated": user.updatedAt,
             "created": user.createdAt,
-            "history": user.history
+            "history": user.history,
+            "wins": user.wins
         });
         // console.log("sadasdsad " + user.history[0].pokeid[0]);
 });

@@ -3,6 +3,7 @@ firstCard = undefined
 secondCard = undefined
 timer = ''
 firstCardHasBeenFlipped = false
+lockBoard = false
 
 difficulty = [
     {
@@ -321,8 +322,11 @@ function setup() {
         })
 
      $(".card").on("click", function () {
+        if(lockBoard) return;
+        if(this === firstCard) return;
         $(this).toggleClass("flip")
-        console.log(firstCard, secondCard);
+
+
         if (!firstCardHasBeenFlipped) {
             // the first card
             firstCard = $(this).find(".front_face")[0]
@@ -333,44 +337,46 @@ function setup() {
             secondCard = $(this).find(".front_face")[0]
             firstCardHasBeenFlipped = false
             console.log(firstCard, secondCard);
+            // prevernt user from double clicking
+            // lockBoard = true
+            // check if the 2 cards match
+     
             // ccheck if we have match!
-            if (
-                $(`#${firstCard.id}`).attr("src")
-                ==
-                $(`#${secondCard.id}`).attr("src")
-            ) {
+            if ($(`#${firstCard.id}`).attr("src") == $(`#${secondCard.id}`).attr("src")) {
                 console.log("a match!");
                 // update the game state
                 // disable clicking events on these cards
                 $(`#${firstCard.id}`).parent().off("click")
                 $(`#${secondCard.id}`).parent().off("click")
             } else {
+                lockBoard = true
                 console.log("not a match");
                 // unflipping
                 setTimeout(() => {
                     $(`#${firstCard.id}`).parent().removeClass("flip")
                     $(`#${secondCard.id}`).parent().removeClass("flip")
+                    lockBoard = false
                 }, 1000)
             }
             if ($(".card:not(.flip)").length == 0) {
                 alert("you win!")
-                // log the time and score to the database
-                // stop the timer
-                clearInterval(interval)
-                // update the database
+                clearInterval(timer)
+                let score = $(".timer").text() * 10
                 $.ajax({
-                    url: "/api/games",
-                    method: "POST",
+                    url: "/api/game",
+                    method: "put",
                     data: {
-                        time: timer,
+                        level: difficulty,
                         score: score,
-                        user_id: user_id
+                        wins: new Date(),
                     }
                 })
                     .then(function (response) {
                         console.log(response);
+                        location.reload();
                     }
                     )
+                    
             }
         }
     })

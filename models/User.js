@@ -9,6 +9,11 @@ const userSchema = new Schema(
       email: String,
       password: String,
       admin: Boolean,
+      wins: [{
+        difficulty: String,
+        score: Number,
+        date: Date,
+      }],
       cart: [{
         pokeID: Number,
         price: Number,
