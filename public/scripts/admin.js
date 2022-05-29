@@ -62,7 +62,7 @@ document.getElementById(`user${userId}`).disabled = true
 console.log(userId);
 $.ajax({
 // url: `https://warm-cove-79874.herokuapp.com/updateUserInfo`,
-url: 'http://localhost:5003/updateUser',
+url: ' https://desolate-refuge-07915.herokuapp.com/updateUser',
 type: 'POST',
 data: {
     _id: userId,
@@ -82,7 +82,7 @@ function deleteUser() {
 userId = $(this).attr('value')
 $.ajax({
 // url: `https://warm-cove-79874.herokuapp.com/deleteUser`,
-url: 'http://localhost:5003/deleteUser',
+url: ' https://desolate-refuge-07915.herokuapp.com/deleteUser',
 type: 'POST',
 data: {
     _id: userId
@@ -104,7 +104,7 @@ admin = $(`#admin`).val()
 password = $(`#password`).val()
 $.ajax({
 // url: `https://warm-cove-79874.herokuapp.com/createUser`,
-url: 'http://localhost:5003/createUser',
+url: ' https://desolate-refuge-07915.herokuapp.com/createUser',
 type: 'POST',
 data: {
     firstname: firstName,
@@ -120,7 +120,7 @@ success: (msg) => {
 })
 $.ajax({
 // url: `https://warm-cove-79874.herokuapp.com/getUsers`,
-url: 'http://localhost:5003/getUsers',
+url: ' https://desolate-refuge-07915.herokuapp.com/getUsers',
 type: 'GET',
 success: (users) => {
     populateUsers(users)
@@ -134,7 +134,7 @@ success: (users) => {
 function getUsers() {
 $.ajax({
 // url: `https://warm-cove-79874.herokuapp.com/getAllUsers`,
-url: 'http://localhost:5003/getAllUsers',
+url: ' https://desolate-refuge-07915.herokuapp.com/getAllUsers',
 type: 'GET',
 success: populateUsers
 })

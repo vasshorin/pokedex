@@ -347,7 +347,7 @@ function setup() {
                 clearInterval(timer)
                 let score = $(".timer").text() * 10
                 $.ajax({
-                    url: "/api/game",
+                    url: " https://desolate-refuge-07915.herokuapp.com/api/game",
                     method: "put",
                     data: {
                         level: difficulty,
